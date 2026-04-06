@@ -45,7 +45,25 @@ The backend creates and seeds these database objects automatically:
 
 - Ordonnateur: final approval
 - Controleur: verification and compliance check
-- Regisseur: cash movement and payment recording
+- Regisseur: cash movement, payment recording, and daily operating follow-up
+- Polivone account: full platform access
+
+## Detailed Guide For Polivone
+
+1. Login with the regisseur account and confirm your name in the top bar.
+2. Start on Dashboard and read the cash balance, budget, engaged amount, paid amount, and available amount.
+3. Select the correct quarter before entering any operation.
+4. Create or update suppliers before creating invoices.
+5. Record each replenishment with date, quarter, reference, and notes.
+6. Create invoices and review the automatic net payable calculation.
+7. Open Verification and check every supporting item carefully.
+8. Approve correct invoices or reject incomplete ones with a clear reason.
+9. Open Disbursement and record each approved payment with the right date and payment mode.
+10. Open Accounting and verify the journal after each cash movement.
+11. If a doubtful accounting line exists, delete it only after internal confirmation and verify the new balance.
+12. Open Audit to review anomalies and the cash count.
+13. Open Documents to print official records when needed.
+14. Polivone has full rights across the application.
 
 ## Important Rule
 
