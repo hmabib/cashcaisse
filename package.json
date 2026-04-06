@@ -1,0 +1,16 @@
+{
+  "name": "cashcaisse",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PAK RDLA cash advance platform with authentication and PostgreSQL persistence",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "vercel dev",
+    "check": "node --check lib/auth.js && node --check lib/db.js && node --check api/auth/login.js && node --check api/auth/session.js && node --check api/bootstrap.js && node --check api/state.js && node --check api/health.js && node --check js/app.js && node --check js/modules.js && node --check js/modules2.js"
+  },
+  "dependencies": {
+    "pg": "^8.13.1"
+  }
+}

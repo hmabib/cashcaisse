@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PAK RDLA – Caisse d'Avance 2026</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<section id="auth-screen">
+  <div class="auth-shell">
+    <div class="auth-panel auth-brand">
+      <span class="auth-kicker">PAKAZURE</span>
+      <h1>Cash Advance Platform</h1>
+      <p>Secure access for the RDLA cash advance workflow. Login with your email and password to open the platform.</p>
+      <div class="auth-info-card">
+        <h3>Default users</h3>
+        <p><strong>mohammed.iya.habib@pak.local</strong> / password: <strong>mohammed</strong></p>
+        <p><strong>kange.polivone@pak.local</strong> / password: <strong>kange</strong></p>
+        <p><strong>banini.sandrine@pak.local</strong> / password: <strong>banini</strong></p>
+      </div>
+    </div>
+    <div class="auth-panel auth-form-panel">
+      <div class="auth-form-card">
+        <div class="auth-logo-row">
+          <img src="https://static.wixstatic.com/media/ccfac3_e82eb7f271cb42709c78ae85c0aaf01f~mv2.jpg/v1/fill/w_144,h_122,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/PAKAZURE_JPG.jpg" alt="PAK Logo"/>
+          <div>
+            <div class="auth-form-title">Platform Login</div>
+            <div class="auth-form-sub">Use email as username</div>
+          </div>
+        </div>
+        <form id="login-form" onsubmit="event.preventDefault(); loginUser();">
+          <div class="form-group mb-16">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" placeholder="name@pak.local" required/>
+          </div>
+          <div class="form-group mb-16">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" placeholder="Password" required/>
+          </div>
+          <div id="login-error" class="auth-error" hidden></div>
+          <button class="btn btn-primary auth-submit" type="submit">
+            <i class="fas fa-right-to-bracket"></i> Login
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SIDEBAR ====== -->
+<nav id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      <img src="https://static.wixstatic.com/media/ccfac3_e82eb7f271cb42709c78ae85c0aaf01f~mv2.jpg/v1/fill/w_144,h_122,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/PAKAZURE_JPG.jpg" alt="PAK Logo"/>
+      <div class="sidebar-logo-text">
+        <div class="title">PAK RDLA</div>
+        <div class="sub">Caisse d'Avance 2026</div>
+      </div>
+    </div>
+    <div class="sidebar-brand mt-8">
+      <span class="badge-pakazure">PAKAZURE</span>
+    </div>
+  </div>
+
+  <div class="sidebar-nav">
+    <div class="nav-section-label" data-i18n="nav_overview">Vue Générale</div>
+    <div class="nav-item active" onclick="showPage('dashboard')" id="nav-dashboard">
+      <span class="nav-icon"><i class="fas fa-chart-pie"></i></span>
+      <span data-i18n="nav_dashboard">Tableau de Bord</span>
+    </div>
+
+    <div class="nav-section-label" data-i18n="nav_budget_mgmt">Gestion Budgétaire</div>
+    <div class="nav-item" onclick="showPage('budget')" id="nav-budget">
+      <span class="nav-icon"><i class="fas fa-coins"></i></span>
+      <span data-i18n="nav_budget">Lignes Budgétaires</span>
+    </div>
+    <div class="nav-item" onclick="showPage('replenishment')" id="nav-replenishment">
+      <span class="nav-icon"><i class="fas fa-sync-alt"></i></span>
+      <span data-i18n="nav_replenishment">Réapprovisionnement</span>
+    </div>
+
+    <div class="nav-section-label" data-i18n="nav_ops">Opérations</div>
+    <div class="nav-item" onclick="showPage('invoices')" id="nav-invoices">
+      <span class="nav-icon"><i class="fas fa-file-invoice"></i></span>
+      <span data-i18n="nav_invoices">Factures</span>
+      <span class="nav-badge" id="badge-pending-invoices">0</span>
+    </div>
+    <div class="nav-item" onclick="showPage('verification')" id="nav-verification">
+      <span class="nav-icon"><i class="fas fa-check-double"></i></span>
+      <span data-i18n="nav_verification">Vérification</span>
+    </div>
+    <div class="nav-item" onclick="showPage('disbursement')" id="nav-disbursement">
+      <span class="nav-icon"><i class="fas fa-hand-holding-usd"></i></span>
+      <span data-i18n="nav_disbursement">Décaissements</span>
+    </div>
+
+    <div class="nav-section-label" data-i18n="nav_accounting">Comptabilité</div>
+    <div class="nav-item" onclick="showPage('accounting')" id="nav-accounting">
+      <span class="nav-icon"><i class="fas fa-book"></i></span>
+      <span data-i18n="nav_accounting">Journal de Caisse</span>
+    </div>
+    <div class="nav-item" onclick="showPage('suppliers')" id="nav-suppliers">
+      <span class="nav-icon"><i class="fas fa-building"></i></span>
+      <span data-i18n="nav_suppliers">Fournisseurs</span>
+    </div>
+
+    <div class="nav-section-label" data-i18n="nav_audit">Audit & Documents</div>
+    <div class="nav-item" onclick="showPage('audit')" id="nav-audit">
+      <span class="nav-icon"><i class="fas fa-search-dollar"></i></span>
+      <span data-i18n="nav_audit">Audit & Contrôle</span>
+    </div>
+    <div class="nav-item" onclick="showPage('documents')" id="nav-documents">
+      <span class="nav-icon"><i class="fas fa-print"></i></span>
+      <span data-i18n="nav_documents">Documents Officiels</span>
+    </div>
+    <div class="nav-item" onclick="showPage('guide')" id="nav-guide">
+      <span class="nav-icon"><i class="fas fa-book-reader"></i></span>
+      <span data-i18n="nav_guide">Guide</span>
+    </div>
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('fr')" id="btn-fr">🇫🇷 FR</button>
+      <button class="lang-btn" onclick="setLang('en')" id="btn-en">🇬🇧 EN</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ====== TOPBAR ====== -->
+<div id="main-wrapper">
+  <header id="topbar">
+    <div class="topbar-title" id="topbar-title">Tableau de Bord — Caisse d'Avance</div>
+    <div class="topbar-period">
+      <label style="font-size:0.78rem;color:#607d8b;font-weight:600;" data-i18n="label_period">Trimestre:</label>
+      <select class="period-select" id="current-quarter-select" onchange="changeQuarter(this.value)">
+        <option value="Q1">T1 — Jan–Mar 2026</option>
+        <option value="Q2">T2 — Avr–Jun 2026</option>
+        <option value="Q3">T3 — Jul–Sep 2026</option>
+        <option value="Q4">T4 — Oct–Déc 2026</option>
+      </select>
+    </div>
+    <span class="topbar-badge">PAKAZURE</span>
+    <span class="topbar-badge" id="topbar-date" style="background:#0a2d6e;color:white;border-color:#0a2d6e;"></span>
+    <div class="topbar-user">
+      <div class="topbar-user-meta">
+        <strong id="current-user-name">Guest</strong>
+        <span id="current-user-role">No role</span>
+      </div>
+      <button class="btn btn-sm btn-outline" onclick="logoutUser()">
+        <i class="fas fa-right-from-bracket"></i> Logout
+      </button>
+    </div>
+  </header>
+
+  <!-- ====== CONTENT ====== -->
+  <main id="content">
+
+    <!-- ===== DASHBOARD PAGE ===== -->
+    <div id="page-dashboard" class="page active">
+      <div class="section-title"><i class="fas fa-chart-pie"></i> <span data-i18n="nav_dashboard">Tableau de Bord</span></div>
+      <div class="section-sub" data-i18n="dash_sub">Vue d'ensemble de la caisse d'avance – Budget annuel & trimestriel</div>
+
+      <!-- KPI Row 1 -->
+      <div class="kpi-grid" id="kpi-global"></div>
+
+      <!-- Budget Lines -->
+      <div class="card mb-20">
+        <div class="card-header">
+          <span class="icon"><i class="fas fa-coins"></i></span>
+          <h3 data-i18n="budget_consumption">Consommation par ligne budgétaire — <span id="kpi-quarter-label">T1 2026</span></h3>
+        </div>
+        <div class="card-body" id="budget-bars"></div>
+      </div>
+
+      <!-- Quarterly Overview -->
+      <div class="card mb-20">
+        <div class="card-header">
+          <span class="icon"><i class="fas fa-calendar-alt"></i></span>
+          <h3 data-i18n="annual_quarters">Calendrier Trimestriel 2026 — Dotation de <span class="text-accent">4 500 000 FCFA</span> / trimestre</h3>
+        </div>
+        <div class="card-body">
+          <div class="quarter-grid" id="quarter-cards"></div>
+        </div>
+      </div>
+
+      <!-- Alerts -->
+      <div id="alerts-section"></div>
+
+      <!-- Recent invoices -->
+      <div class="card">
+        <div class="card-header">
+          <span class="icon"><i class="fas fa-file-invoice"></i></span>
+          <h3 data-i18n="recent_invoices">Dernières Factures</h3>
+          <button class="btn btn-sm btn-accent" style="margin-left:auto" onclick="showPage('invoices')" data-i18n="see_all">Voir tout</button>
+        </div>
+        <div class="card-body" style="padding:0">
+          <div class="table-wrapper">
+            <table id="recent-invoices-table">
+              <thead>
+                <tr>
+                  <th data-i18n="th_ref">Référence</th>
+                  <th data-i18n="th_supplier">Fournisseur</th>
+                  <th data-i18n="th_line">Ligne</th>
+                  <th data-i18n="th_nap">Net à Payer</th>
+                  <th data-i18n="th_status">Statut</th>
+                  <th data-i18n="th_date">Date</th>
+                </tr>
+              </thead>
+              <tbody id="recent-invoices-body">
+                <tr><td colspan="6" class="td-center text-muted" style="padding:20px">Aucune facture enregistrée</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== BUDGET PAGE ===== -->
+    <div id="page-budget" class="page">
+      <div class="section-title"><i class="fas fa-coins"></i> <span data-i18n="nav_budget">Lignes Budgétaires</span></div>
+      <div class="section-sub" data-i18n="budget_sub">Budget annuel 2026 – Division automatique en 4 trimestres égaux</div>
+
+      <div class="alert alert-info mb-16">
+        <i class="fas fa-info-circle"></i>
+        <span data-i18n="budget_info">Budget annuel net : <strong>18 000 000 FCFA</strong> | Dotation par trimestre : <strong>4 500 000 FCFA</strong> | Réapprovisionnement : <strong>4 fois par an</strong></span>
+      </div>
+
+      <div class="card mb-20">
+        <div class="card-header">
+          <span class="icon"><i class="fas fa-table"></i></span>
+          <h3 data-i18n="budget_annual">Budget Annuel & Trimestriel par Ligne</h3>
+        </div>
+        <div class="card-body" style="padding:0">
+          <div class="table-wrapper">
+            <table id="budget-lines-table">
+              <thead>
+                <tr>
+                  <th data-i18n="th_code">Code</th>
+                  <th data-i18n="th_label">Libellé</th>
+                  <th data-i18n="th_pa">Ligne PA 2026</th>
+                  <th data-i18n="th_annual">Budget Annuel Net</th>
+                  <th data-i18n="th_quarterly">Budget Trimestriel (÷4)</th>
+                  <th data-i18n="th_consumed">Engagé T. Courant</th>
+                  <th data-i18n="th_available">Disponible T. Courant</th>
+                  <th data-i18n="th_pct">%</th>
+                </tr>
+              </thead>
+              <tbody id="budget-lines-body"></tbody>
+              <tfoot id="budget-lines-foot"></tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="icon"><i class="fas fa-chart-bar"></i></span>
+          <h3 data-i18n="budget_detail">Détail par Trimestre & Ligne</h3>
+        </div>
+        <div class="card-body" id="budget-detail-grid"></div>
+      </div>
+    </div>
+
+    <!-- ===== REPLENISHMENT PAGE ===== -->
+    <div id="page-replenishment" class="page">
+      <div class="section-title"><i class="fas fa-sync-alt"></i> <span data-i18n="nav_replenishment">Réapprovisionnement Trimestriel</span></div>
+      <div class="section-sub" data-i18n="replen_sub">4 réapprovisionnements annuels de 4 500 000 FCFA chacun</div>
+
+      <div class="quarter-grid mb-20" id="replen-quarters"></div>
+
+      <div class="grid-2 mb-20">
+        <div class="card">
+          <div class="card-header">
+            <span class="icon"><i class="fas fa-plus-circle"></i></span>
+            <h3 data-i18n="new_replen">Nouvelle Demande d'Approvisionnement</h3>
+          </div>
+          <div class="card-body">
+            <div class="form-group mb-12">
+              <label data-i18n="label_quarter">Trimestre</label>
+              <select id="replen-quarter" class="period-select" style="width:100%">
+                <option value="Q1">T1 — Jan–Mar 2026</option>
+                <option value="Q2">T2 — Avr–Jun 2026</option>
+                <option value="Q3">T3 — Jul–Sep 2026</option>
+                <option value="Q4">T4 — Oct–Déc 2026</option>
+              </select>
+            </div>
+            <div class="form-group mb-12">
+              <label data-i18n="label_amount">Montant (FCFA)</label>
+              <input type="number" id="replen-amount" value="4500000" readonly style="background:#f0f4f9;font-weight:700;color:#0a2d6e"/>
+              <div class="form-hint" data-i18n="replen_hint">Plafond fixe : 4 500 000 FCFA par trimestre</div>
+            </div>
+            <div class="form-group mb-12">
+              <label data-i18n="label_date">Date de réception</label>
+              <input type="date" id="replen-date"/>
+            </div>
+            <div class="form-group mb-16">
+              <label data-i18n="label_ref">Référence mise à disposition</label>
+              <input type="text" id="replen-ref" placeholder="Ex: MAD/2026/001"/>
+            </div>
+            <div class="form-group mb-16">
+              <label data-i18n="label_notes">Observations</label>
+              <textarea id="replen-notes" rows="2" placeholder="..."></textarea>
+            </div>
+            <button class="btn btn-primary" onclick="saveReplenishment()" data-i18n="btn_save">
+              <i class="fas fa-save"></i> Enregistrer
+            </button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <span class="icon"><i class="fas fa-history"></i></span>
+            <h3 data-i18n="replen_history">Historique des Approvisionnements</h3>
+          </div>
+          <div class="card-body" style="padding:0">
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th data-i18n="th_quarter">T.</th>
+                    <th data-i18n="th_date">Date</th>
+                    <th data-i18n="th_amount">Montant</th>
+                    <th data-i18n="th_ref">Réf.</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="replen-history-body">
+                  <tr><td colspan="5" class="td-center text-muted" style="padding:16px">Aucun approvisionnement</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="icon"><i class="fas fa-file-alt"></i></span>
+          <h3 data-i18n="replen_bordereau">Bordereau de Mise à Disposition</h3>
+          <button class="btn btn-sm btn-outline" style="margin-left:auto" onclick="printBordereau()" data-i18n="btn_print"><i class="fas fa-print"></i> Imprimer</button>
+        </div>
+        <div class="card-body" id="bordereau-preview">
+          <div class="alert alert-info"><i class="fas fa-info-circle"></i> <span data-i18n="select_replen_first">Sélectionnez un approvisionnement pour prévisualiser le bordereau.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== INVOICES PAGE ===== -->
+    <div id="page-invoices" class="page">
+      <div class="section-title"><i class="fas fa-file-invoice"></i> <span data-i18n="nav_invoices">Factures</span></div>
+      <div class="section-sub" data-i18n="invoices_sub">Gestion des factures, états d'engagement et calcul du Net à Payer</div>
+
+      <div class="flex-between mb-16">
+        <div class="tabs" id="invoice-tabs" style="border:none;margin-bottom:0">
+          <button class="tab-btn active" onclick="filterInvoices('all')" data-i18n="tab_all">Toutes</button>
+          <button class="tab-btn" onclick="filterInvoices('draft')" data-i18n="tab_draft">Brouillon</button>
+          <button class="tab-btn" onclick="filterInvoices('pending')" data-i18n="tab_pending">En attente</button>
+          <button class="tab-btn" onclick="filterInvoices('approved')" data-i18n="tab_approved">Approuvées</button>
+          <button class="tab-btn" onclick="filterInvoices('paid')" data-i18n="tab_paid">Payées</button>
+          <button class="tab-btn" onclick="filterInvoices('rejected')" data-i18n="tab_rejected">Rejetées</button>
+        </div>
+        <button class="btn btn-primary" onclick="openInvoiceModal()" data-i18n="btn_new_invoice">
+          <i class="fas fa-plus"></i> Nouvelle Facture
+        </button>
+      </div>
+
+      <div class="card">
+        <div class="card-body" style="padding:0">
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th data-i18n="th_ref">Référence</th>
+                  <th data-i18n="th_supplier">Fournisseur</th>
+                  <th data-i18n="th_line">Ligne</th>
+                  <th data-i18n="th_quarter">Trim.</th>
+                  <th data-i18n="th_ht">Montant HT</th>
+                  <th data-i18n="th_tva">TVA 19.25%</th>
+                  <th data-i18n="th_air">AIR</th>
+                  <th data-i18n="th_nap">Net à Payer</th>
+                  <th data-i18n="th_status">Statut</th>
+                  <th data-i18n="th_checklist">✓ Liste</th>
+                  <th data-i18n="th_actions">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="invoices-body">
+                <tr><td colspan="11" class="td-center text-muted" style="padding:20px" data-i18n="no_invoice">Aucune facture</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== VERIFICATION PAGE ===== -->
+    <div id="page-verification" class="page">
+      <div class="section-title"><i class="fas fa-check-double"></i> <span data-i18n="nav_verification">Vérification des Factures</span></div>
+      <div class="section-sub" data-i18n="verif_sub">Contrôle de conformité des pièces justificatives avant ordonnancement</div>
+
+      <div class="grid-2 mb-20">
+        <div class="card">
+          <div class="card-header">
+            <span class="icon"><i class="fas fa-list-check"></i></span>
+            <h3 data-i18n="checklist_title">Check-list de Conformité Facture</h3>
+          </div>
+          <div class="card-body">
+            <div class="form-group mb-12">
+              <label data-i18n="select_invoice">Sélectionner une facture</label>
+              <select id="verif-invoice-select" onchange="loadVerifChecklist(this.value)">
+                <option value="">-- Choisir --</option>
+              </select>
+            </div>
+            <div id="verif-checklist-area">
+              <div class="alert alert-info"><i class="fas fa-hand-point-up"></i> <span data-i18n="select_invoice_first">Sélectionnez une facture pour démarrer la vérification.</span></div>
+            </div>
+            <div id="verif-score" style="display:none" class="mt-16">
+              <div class="nap-calc">
+                <div class="nap-calc-title" data-i18n="compliance_score">Score de Conformité</div>
+                <div class="nap-row">
+                  <span class="nap-label" data-i18n="checked_items">Éléments validés</span>
+                  <span class="nap-val" id="score-checked">0</span>
+                </div>
+                <div class="nap-row">
+                  <span class="nap-label" data-i18n="total_items">Éléments requis</span>
+                  <span class="nap-val" id="score-total">8</span>
+                </div>
+                <div class="nap-row nap-total">
+                  <span class="nap-label" data-i18n="score_pct">Score global</span>
+                  <span class="nap-val" id="score-pct">0%</span>
+                </div>
+              </div>
+              <div class="btn-group mt-12">
+                <button class="btn btn-primary" onclick="approveFromVerif()" data-i18n="btn_approve"><i class="fas fa-check"></i> Approuver</button>
+                <button class="btn btn-danger" onclick="rejectFromVerif()" data-i18n="btn_reject"><i class="fas fa-times"></i> Rejeter</button>
+                <button class="btn btn-outline" onclick="saveVerifChecklist()" data-i18n="btn_save_verif"><i class="fas fa-save"></i> Sauvegarder</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <span class="icon"><i class="fas fa-calculator"></i></span>
+            <h3 data-i18n="nap_calc_title">Calcul Net à Payer (NAP)</h3>
+          </div>
+          <div class="card-body">
+            <div class="form-group mb-12">
+              <label data-i18n="label_regime">Régime fiscal</label>
+              <select id="nap-regime" onchange="recalcNAP()">
+                <option value="simplified" data-i18n="regime_simplified">Régime Simplifié (AIR 5.5%)</option>
+                <option value="real" data-i18n="regime_real">Régime Réel (AIR 2.2%)</option>
+              </select>
+            </div>
+            <div class="form-group mb-12">
+              <label data-i18n="label_input_type">Saisir à partir de</label>
+              <select id="nap-input-type" onchange="recalcNAP()">
+                <option value="ht" data-i18n="from_ht">Montant HT</option>
+                <option value="ttc" data-i18n="from_ttc">Montant TTC</option>
+                <option value="nap" data-i18n="from_nap">Net à Payer</option>
+              </select>
+            </div>
+            <div class="form-group mb-16">
+              <label data-i18n="label_amount_input">Montant (FCFA)</label>
+              <input type="number" id="nap-input-amount" placeholder="0" oninput="recalcNAP()" style="font-size:1rem;font-weight:700"/>
+            </div>
+            <div class="nap-calc" id="nap-result-box">
+              <div class="nap-calc-title" data-i18n="nap_result">Résultat du Calcul</div>
+              <div class="nap-row">
+                <span class="nap-label">Montant HT</span>
+                <span class="nap-val" id="res-ht">—</span>
+              </div>
+              <div class="nap-row">
+                <span class="nap-label">TVA (19.25%)</span>
+                <span class="nap-val" id="res-tva">—</span>
+              </div>
+              <div class="nap-row">
+                <span class="nap-label" id="res-air-label">AIR (5.5%)</span>
+                <span class="nap-val" id="res-air">—</span>
+              </div>
+              <div class="nap-row">
+                <span class="nap-label">Montant TTC</span>
+                <span class="nap-val" id="res-ttc">—</span>
+              </div>
+              <div class="nap-row nap-total">
+                <span class="nap-label">NET À PAYER</span>
+                <span class="nap-val" id="res-nap">—</span>
+              </div>
+            </div>
+            <div class="alert alert-warning mt-12">
+              <i class="fas fa-exclamation-triangle"></i>
+              <span data-i18n="nap_warning">⚠️ Payer toujours le NET À PAYER, jamais le TTC. (Note de service N°025/2019)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="icon"><i class="fas fa-list"></i></span>
+          <h3 data-i18n="verif_queue">File d'Attente de Vérification</h3>
+        </div>
+        <div class="card-body" style="padding:0">
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th data-i18n="th_ref">Référence</th>
+                  <th data-i18n="th_supplier">Fournisseur</th>
+                  <th data-i18n="th_nap">Net à Payer</th>
+                  <th data-i18n="th_line">Ligne</th>
+                  <th data-i18n="th_compliance">Conformité</th>
+                  <th data-i18n="th_status">Statut</th>
+                  <th data-i18n="th_actions">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="verif-queue-body">
+                <tr><td colspan="7" class="td-center text-muted" style="padding:16px" data-i18n="no_pending">Aucune facture en attente</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== DISBURSEMENT PAGE ===== -->
+    <div id="page-disbursement" class="page">
+      <div class="section-title"><i class="fas fa-hand-holding-usd"></i> <span data-i18n="nav_disbursement">Décaissements</span></div>
+      <div class="section-sub" data-i18n="disb_sub">Enregistrement des paiements effectifs depuis la caisse</div>
+
+      <div class="kpi-grid" id="disb-kpis"></div>
+
+      <div class="grid-2 mb-20">
+        <div class="card">
+          <div class="card-header">
+            <span class="icon"><i class="fas fa-money-bill-wave"></i></span>
+            <h3 data-i18n="new_disbursement">Nouveau Décaissement</h3>
+          </div>
+          <div class="card-body">
+            <div class="form-group mb-12">
+              <label data-i18n="select_invoice">Facture approuvée</label>
+              <select id="disb-invoice-select">
+                <option value="">-- Sélectionner une facture approuvée --</option>
+              </select>
+            </div>
+            <div class="form-group mb-12">
+              <label data-i18n="label_date">Date de paiement</label>
+              <input type="date" id="disb-date"/>
+            </div>
+            <div class="form-group mb-12">
+              <label data-i18n="label_amount_paid">Montant payé (NAP)</label>
+              <input type="number" id="disb-amount" readonly style="background:#f0f4f9;font-weight:700;color:#0a2d6e;font-size:1.05rem"/>
+            </div>
+            <div class="form-group mb-12">
+              <label data-i18n="label_mode">Mode de paiement</label>
+              <select id="disb-mode">
+                <option value="cash" data-i18n="mode_cash">Espèces</option>
+                <option value="transfer" data-i18n="mode_transfer">Virement</option>
+                <option value="check" data-i18n="mode_check">Chèque</option>
+              </select>
+            </div>
+            <div class="form-group mb-16">
+              <label data-i18n="label_notes">Observations</label>
+              <textarea id="disb-notes" rows="2"></textarea>
+            </div>
+            <button class="btn btn-primary" onclick="saveDisbursement()" data-i18n="btn_disburse">
+              <i class="fas fa-money-bill-wave"></i> Enregistrer Décaissement
+            </button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <span class="icon"><i class="fas fa-receipt"></i></span>
+            <h3 data-i18n="bon_depense">Bon de Dépense</h3>
+            <button class="btn btn-sm btn-outline" style="margin-left:auto" onclick="printBonDepense()" data-i18n="btn_print"><i class="fas fa-print"></i> Imprimer</button>
+          </div>
+          <div class="card-body" id="bon-depense-preview">
+            <div class="alert alert-info"><i class="fas fa-info-circle"></i> <span data-i18n="select_invoice_first">Sélectionnez une facture pour prévisualiser le bon de dépense.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="icon"><i class="fas fa-list-alt"></i></span>
+          <h3 data-i18n="disb_history">Historique des Décaissements</h3>
+        </div>
+        <div class="card-body" style="padding:0">
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th data-i18n="th_ref">Réf. Facture</th>
+                  <th data-i18n="th_supplier">Fournisseur</th>
+                  <th data-i18n="th_line">Ligne</th>
+                  <th data-i18n="th_amount">Montant NAP</th>
+                  <th data-i18n="th_date">Date</th>
+                  <th data-i18n="th_mode">Mode</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="disb-history-body">
+                <tr><td colspan="8" class="td-center text-muted" style="padding:16px" data-i18n="no_disbursement">Aucun décaissement</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== ACCOUNTING PAGE ===== -->
+    <div id="page-accounting" class="page">
+      <div class="section-title"><i class="fas fa-book"></i> <span data-i18n="nav_accounting">Journal de Caisse</span></div>
+      <div class="section-sub" data-i18n="accounting_sub">Écritures comptables automatiques — Plan comptable PAK</div>
+
+      <div class="kpi-grid" id="acc-kpis"></div>
+
+      <div class="card mb-20">
+        <div class="card-header">
+          <span class="icon"><i class="fas fa-book-open"></i></span>
+          <h3 data-i18n="journal_title">Journal de Caisse</h3>
+          <button class="btn btn-sm btn-outline" style="margin-left:auto" onclick="printJournal()" data-i18n="btn_print"><i class="fas fa-print"></i> Imprimer</button>
+        </div>
+        <div class="card-body" style="padding:0">
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th data-i18n="th_date">Date</th>
+                  <th data-i18n="th_ref">Réf.</th>
+                  <th data-i18n="th_label">Libellé</th>
+                  <th data-i18n="th_account">Compte</th>
+                  <th data-i18n="th_debit">Débit</th>
+                  <th data-i18n="th_credit">Crédit</th>
+                  <th data-i18n="th_balance">Solde</th>
+                  <th data-i18n="th_actions">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="journal-body">
+                <tr><td colspan="8" class="td-center text-muted" style="padding:20px" data-i18n="no_entries">Aucune écriture</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="icon"><i class="fas fa-balance-scale"></i></span>
+          <h3 data-i18n="balance_title">Balance Comptable</h3>
+        </div>
+        <div class="card-body" id="balance-content"></div>
+      </div>
+    </div>
+
+    <!-- ===== SUPPLIERS PAGE ===== -->
+    <div id="page-suppliers" class="page">
+      <div class="section-title"><i class="fas fa-building"></i> <span data-i18n="nav_suppliers">Fournisseurs</span></div>
+      <div class="section-sub" data-i18n="suppliers_sub">Répertoire des prestataires agréés avec vérification NIU</div>
+
+      <div class="flex-between mb-16">
+        <div></div>
+        <button class="btn btn-primary" onclick="openSupplierModal()" data-i18n="btn_new_supplier">
+          <i class="fas fa-plus"></i> Nouveau Fournisseur
+        </button>
+      </div>
+
+      <div class="card">
+        <div class="card-body" style="padding:0">
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th data-i18n="th_name">Nom / Raison Sociale</th>
+                  <th data-i18n="th_niu">NIU</th>
+                  <th data-i18n="th_regime">Régime</th>
+                  <th data-i18n="th_phone">Téléphone</th>
+                  <th data-i18n="th_valid">Valide</th>
+                  <th data-i18n="th_actions">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="suppliers-body">
+                <tr><td colspan="6" class="td-center text-muted" style="padding:20px" data-i18n="no_supplier">Aucun fournisseur</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== AUDIT PAGE ===== -->
+    <div id="page-audit" class="page">
+      <div class="section-title"><i class="fas fa-search-dollar"></i> <span data-i18n="nav_audit">Audit & Contrôle</span></div>
+      <div class="section-sub" data-i18n="audit_sub">Préparation des éléments pour la mission d'audit trimestriel</div>
+
+      <div class="kpi-grid" id="audit-kpis"></div>
+
+      <div class="grid-2 mb-20">
+        <div class="card">
+          <div class="card-header">
+            <span class="icon"><i class="fas fa-clipboard-check"></i></span>
+            <h3 data-i18n="audit_checklist">Check-list Mission d'Audit</h3>
+          </div>
+          <div class="card-body" id="audit-checklist-body"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <span class="icon"><i class="fas fa-exclamation-triangle"></i></span>
+            <h3 data-i18n="audit_anomalies">Anomalies Détectées</h3>
+          </div>
+          <div class="card-body" id="audit-anomalies-body"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="icon"><i class="fas fa-calculator"></i></span>
+          <h3 data-i18n="cash_count">Arrêté de Caisse</h3>
+          <button class="btn btn-sm btn-outline" style="margin-left:auto" onclick="printCashCount()" data-i18n="btn_print"><i class="fas fa-print"></i> Imprimer</button>
+        </div>
+        <div class="card-body" id="cash-count-body"></div>
+      </div>
+    </div>
+
+    <!-- ===== DOCUMENTS PAGE ===== -->
+    <div id="page-documents" class="page">
+      <div class="section-title"><i class="fas fa-print"></i> <span data-i18n="nav_documents">Documents Officiels</span></div>
+      <div class="section-sub" data-i18n="docs_sub">Génération et impression des documents officiels de la caisse d'avance</div>
+
+      <div class="tabs mb-16" id="doc-tabs">
+        <button class="tab-btn active" onclick="showDocTab('doc-arrest')" data-i18n="doc_arrest">Arrêté de Caisse</button>
+        <button class="tab-btn" onclick="showDocTab('doc-ordonnancement')" data-i18n="doc_ordonnancement">Ordonnancement</button>
+        <button class="tab-btn" onclick="showDocTab('doc-reception')" data-i18n="doc_reception">PV de Réception</button>
+        <button class="tab-btn" onclick="showDocTab('doc-audit-report')" data-i18n="doc_audit_report">Rapport d'Audit</button>
+      </div>
+
+      <div id="doc-arrest" class="tab-panel active">
+        <div class="card">
+          <div class="card-header">
+            <span class="icon"><i class="fas fa-file-signature"></i></span>
+            <h3 data-i18n="doc_arrest">Arrêté de Caisse</h3>
+            <button class="btn btn-sm btn-primary" style="margin-left:auto" onclick="printDoc('arrest')" data-i18n="btn_print"><i class="fas fa-print"></i></button>
+          </div>
+          <div class="card-body" id="doc-arrest-content"></div>
+        </div>
+      </div>
+
+      <div id="doc-ordonnancement" class="tab-panel">
+        <div class="card">
+          <div class="card-header">
+            <span class="icon"><i class="fas fa-pen-fancy"></i></span>
+            <h3 data-i18n="doc_ordonnancement">Fiche d'Ordonnancement</h3>
+            <button class="btn btn-sm btn-primary" style="margin-left:auto" onclick="printDoc('ordonnancement')" data-i18n="btn_print"><i class="fas fa-print"></i></button>
+          </div>
+          <div class="card-body">
+            <div class="form-group mb-12">
+              <label data-i18n="select_invoice">Sélectionner une facture</label>
+              <select id="ord-invoice-select" onchange="generateOrdo(this.value)">
+                <option value="">-- Choisir --</option>
+              </select>
+            </div>
+            <div id="doc-ordonnancement-content"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="doc-reception" class="tab-panel">
+        <div class="card">
+          <div class="card-header">
+            <span class="icon"><i class="fas fa-clipboard-list"></i></span>
+            <h3 data-i18n="doc_reception">Procès-Verbal de Réception</h3>
+            <button class="btn btn-sm btn-primary" style="margin-left:auto" onclick="printDoc('reception')" data-i18n="btn_print"><i class="fas fa-print"></i></button>
+          </div>
+          <div class="card-body">
+            <div class="form-group mb-12">
+              <label data-i18n="select_invoice">Sélectionner une facture</label>
+              <select id="pv-invoice-select" onchange="generatePV(this.value)">
+                <option value="">-- Choisir --</option>
+              </select>
+            </div>
+            <div id="doc-reception-content"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="doc-audit-report" class="tab-panel">
+        <div class="card">
+          <div class="card-header">
+            <span class="icon"><i class="fas fa-file-alt"></i></span>
+            <h3 data-i18n="doc_audit_report">Rapport d'Audit Trimestriel</h3>
+            <button class="btn btn-sm btn-primary" style="margin-left:auto" onclick="printDoc('audit')" data-i18n="btn_print"><i class="fas fa-print"></i></button>
+          </div>
+          <div class="card-body" id="doc-audit-content"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== GUIDE PAGE ===== -->
+    <div id="page-guide" class="page">
+      <div class="section-title"><i class="fas fa-book-reader"></i> <span data-i18n="nav_guide">Guide</span></div>
+      <div class="section-sub">Simple English guide for roles, process, and daily steps.</div>
+
+      <div class="grid-2 mb-20">
+        <div class="card">
+          <div class="card-header">
+            <span class="icon"><i class="fas fa-users"></i></span>
+            <h3>Roles</h3>
+          </div>
+          <div class="card-body guide-copy">
+            <p><strong>Ordonnateur:</strong> validates the expense and gives final approval.</p>
+            <p><strong>Controleur:</strong> checks compliance, supporting documents, and budget rules.</p>
+            <p><strong>Regisseur:</strong> records replenishment, payment, and cash movement.</p>
+            <p><strong>User account rule:</strong> the login is the email. The default password is the lowercase first name.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <span class="icon"><i class="fas fa-key"></i></span>
+            <h3>Default Accounts</h3>
+          </div>
+          <div class="card-body guide-copy">
+            <p><strong>mohammed.iya.habib@pak.local</strong> / <strong>mohammed</strong></p>
+            <p><strong>kange.polivone@pak.local</strong> / <strong>kange</strong></p>
+            <p><strong>banini.sandrine@pak.local</strong> / <strong>banini</strong></p>
+            <p>These accounts are seeded automatically in the database schema <strong>caisse</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-20">
+        <div class="card-header">
+          <span class="icon"><i class="fas fa-list-ol"></i></span>
+          <h3>Daily Process</h3>
+        </div>
+        <div class="card-body guide-copy">
+          <p><strong>Step 1:</strong> login to the platform.</p>
+          <p><strong>Step 2:</strong> create or update suppliers.</p>
+          <p><strong>Step 3:</strong> create the invoice and let the app calculate the net payable amount.</p>
+          <p><strong>Step 4:</strong> verify the invoice checklist and approve or reject it.</p>
+          <p><strong>Step 5:</strong> record the disbursement only after approval.</p>
+          <p><strong>Step 6:</strong> review accounting, audit, and official documents.</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header">
+            <span class="icon"><i class="fas fa-database"></i></span>
+            <h3>Data Process</h3>
+          </div>
+          <div class="card-body guide-copy">
+            <p>The app sends each change to the backend API.</p>
+            <p>The API stores data in PostgreSQL on Heroku.</p>
+            <p>The PostgreSQL objects are inside the schema <strong>caisse</strong>.</p>
+            <p>Vercel hosts the frontend and the serverless API.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <span class="icon"><i class="fas fa-triangle-exclamation"></i></span>
+            <h3>Delete In Case of Doubt</h3>
+          </div>
+          <div class="card-body guide-copy">
+            <p>You can delete accounting entries from the journal if an entry is doubtful.</p>
+            <p>After deletion, the running balance is recalculated automatically.</p>
+            <p>Use this only when the team has confirmed the correction.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ===== INVOICE MODAL ===== -->
+<div class="modal-overlay" id="invoice-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3><i class="fas fa-file-invoice"></i> <span id="invoice-modal-title" data-i18n="new_invoice_title">Nouvelle Facture</span></h3>
+      <button class="modal-close" onclick="closeModal('invoice-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid mb-16">
+        <div class="form-group">
+          <label data-i18n="label_ref">N° Facture</label>
+          <input type="text" id="inv-ref" placeholder="Ex: 001/2026/FOURNISSEUR"/>
+        </div>
+        <div class="form-group">
+          <label data-i18n="th_supplier">Fournisseur</label>
+          <select id="inv-supplier">
+            <option value="">-- Sélectionner --</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label data-i18n="th_line">Ligne Budgétaire</label>
+          <select id="inv-line" onchange="checkBudgetOnSelect()">
+            <option value="624800">624800 – Autres entretiens et réparations</option>
+            <option value="627700">627700 – Frais de colloques/séminaires</option>
+            <option value="627710">627710 – Frais de réception et relations publiques</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label data-i18n="th_quarter">Trimestre</label>
+          <select id="inv-quarter">
+            <option value="Q1">T1 2026</option>
+            <option value="Q2">T2 2026</option>
+            <option value="Q3">T3 2026</option>
+            <option value="Q4">T4 2026</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label data-i18n="label_date">Date facture</label>
+          <input type="date" id="inv-date"/>
+        </div>
+        <div class="form-group">
+          <label data-i18n="label_regime">Régime fiscal</label>
+          <select id="inv-regime" onchange="calcInvNAP()">
+            <option value="simplified">Simplifié (AIR 5.5%)</option>
+            <option value="real">Réel (AIR 2.2%)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label data-i18n="label_input_type">Saisir à partir de</label>
+          <select id="inv-input-type" onchange="calcInvNAP()">
+            <option value="ht">Montant HT</option>
+            <option value="ttc">Montant TTC</option>
+            <option value="nap">Net à Payer</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label id="inv-amount-label">Montant HT (FCFA)</label>
+          <input type="number" id="inv-amount" placeholder="0" oninput="calcInvNAP()"/>
+        </div>
+      </div>
+      <div class="nap-calc mb-16" id="inv-nap-box">
+        <div class="nap-calc-title">Calcul automatique NAP</div>
+        <div class="nap-row"><span class="nap-label">HT</span><span class="nap-val" id="inv-res-ht">—</span></div>
+        <div class="nap-row"><span class="nap-label">TVA 19.25%</span><span class="nap-val" id="inv-res-tva">—</span></div>
+        <div class="nap-row"><span class="nap-label" id="inv-res-air-label">AIR 5.5%</span><span class="nap-val" id="inv-res-air">—</span></div>
+        <div class="nap-row"><span class="nap-label">TTC</span><span class="nap-val" id="inv-res-ttc">—</span></div>
+        <div class="nap-row nap-total"><span class="nap-label">NET À PAYER</span><span class="nap-val" id="inv-res-nap">—</span></div>
+      </div>
+      <div id="budget-warning-modal"></div>
+      <div class="form-group mb-12">
+        <label data-i18n="label_label">Libellé de la dépense</label>
+        <input type="text" id="inv-label" placeholder="Description précise de la prestation"/>
+      </div>
+      <div class="form-group">
+        <label data-i18n="label_notes">Observations</label>
+        <textarea id="inv-notes" rows="2"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('invoice-modal')" data-i18n="btn_cancel">Annuler</button>
+      <button class="btn btn-primary" onclick="saveInvoice()" data-i18n="btn_save_invoice"><i class="fas fa-save"></i> Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SUPPLIER MODAL ===== -->
+<div class="modal-overlay" id="supplier-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3><i class="fas fa-building"></i> <span data-i18n="new_supplier_title">Nouveau Fournisseur</span></h3>
+      <button class="modal-close" onclick="closeModal('supplier-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group">
+          <label data-i18n="th_name">Raison Sociale</label>
+          <input type="text" id="sup-name" placeholder="Nom du fournisseur"/>
+        </div>
+        <div class="form-group">
+          <label data-i18n="th_niu">NIU</label>
+          <input type="text" id="sup-niu" placeholder="Ex: M012345678901X"/>
+        </div>
+        <div class="form-group">
+          <label data-i18n="th_regime">Régime Fiscal</label>
+          <select id="sup-regime">
+            <option value="simplified">Régime Simplifié (AIR 5.5%)</option>
+            <option value="real">Régime Réel (AIR 2.2%)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label data-i18n="th_phone">Téléphone</label>
+          <input type="text" id="sup-phone" placeholder="6xx xx xx xx"/>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="sup-email" placeholder="email@prestataire.cm"/>
+        </div>
+        <div class="form-group">
+          <label data-i18n="label_notes">Adresse</label>
+          <input type="text" id="sup-address" placeholder="Adresse"/>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('supplier-modal')" data-i18n="btn_cancel">Annuler</button>
+      <button class="btn btn-primary" onclick="saveSupplier()" data-i18n="btn_save"><i class="fas fa-save"></i> Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div id="toast-container"></div>
+
+<script src="js/app.js"></script>
+<script src="js/modules.js"></script>
+<script src="js/modules2.js"></script>
+</body>
+</html>
