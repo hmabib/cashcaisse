@@ -133,7 +133,7 @@ ON CONFLICT (key) DO NOTHING;
 
 INSERT INTO caisse.users (email, first_name, last_name, role, password_hash)
 VALUES
-  ('mohammed.iya.habib@pak.local', 'Mohammed', 'Iya Habib', 'Ordonnateur', '41da2231b7ce5b32da3b243fb6b2f7ef:3f7141beeeb3c42caca9e9bc35b6df667740997d8fc6de4a27679525ec784f27d13484f3986bc3273a7addf603efd7878b4bed3d772836d30841d0a2960a8841'),
-  ('kange.polivone@pak.local', 'Kange', 'Polivone', 'Regisseur', '450df2bf3a955d80fc916521484ee630:0a056939ad3be518aeb9eb0d05f86ee7ba2aeba536d8f5ea999d75ede2b51d7b9aa4573920c12b4b603175a7fbdc2bef90ea9aa9fe7c221fd6f1d5d8664a33d5'),
-  ('banini.sandrine@pak.local', 'Banini', 'Sandrine', 'Controleur', 'b3a9df3a5c4b247a6bc80fd54f31fb7e:645f82b29f68900dd9f978bf8ef2b95a1411ea03ea622995b969476e9aea07eaaf6af1038bd883aaab154252c628c237af8d001d679f513e708f3c055805db29')
+  ('habib.iya@pak.cm', 'Habib', 'Iya', 'Ordonnateur', '7bca8a21635f6e829bfd32d97a6b3d69:759b892018d34f37ca6af47aba7eb2805550d084e770b9cdddd934ec598138f0cd70daa26dbc2faa49b56c5087ef4759fe1ab5119efb6a502eb2b9589a8c62ab'),
+  ('polivone.kange@pak.cm', 'Polivone', 'Kange', 'Regisseur', '3e16fb58954bfca0c6671cfa03d2c25f:3b101acf49157de818ab70a7afadaae62c48e53cb9147785b09242e9d18e98f4a42990410b65c6de09601a471dcea0f9951d722fa096fa1e91e5725428793249'),
+  ('sandrine.banini@pak.cm', 'Sandrine', 'Banini', 'Controleur', '18c4c6e4673bb2b3545ddae5593b58a6:9a1f3da6dc069fa548777dc3eb7143b0e01d493f0e972f71136ef7baad9aaea19ea15beb8d8e3a18cee0ec15512a47e721550d17c5ed5b55dddbd10052f5c3f5')
 ON CONFLICT (email) DO NOTHING;

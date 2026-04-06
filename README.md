@@ -15,9 +15,9 @@ This application manages the RDLA cash advance workflow for PAKAZURE.
 
 ## Default Accounts
 
-- `mohammed.iya.habib@pak.local` / `mohammed`
-- `kange.polivone@pak.local` / `kange`
-- `banini.sandrine@pak.local` / `banini`
+- `habib.iya@pak.cm` / `habib`
+- `polivone.kange@pak.cm` / `polivone`
+- `sandrine.banini@pak.cm` / `sandrine`
 
 The username is the email. The default password is the lowercase first name.
 
